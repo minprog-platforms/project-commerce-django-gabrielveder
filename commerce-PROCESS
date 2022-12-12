@@ -1,0 +1,11 @@
+# Dit is het procesboek voor de Commerce opdracht.
+
+### In dit procesboek zal ik bijhouden hoe ik deze opdracht aanpak, tegen welke grote uitdagingen ik aanlop en hoe ik deze oplos.
+
+#### 12 - 12 - 2022
+
+Het maken van de readme ging op een vergelijkbare wijze met die van de wiki opdracht. Het 'Class Diagram' deel van de opdracht heb ik voor nu achterwegen gelaten i.v.m. de tijd die ik nog over heb voor de rest van de opdracht. Wanneer ik nog tijd heb voor dit deel zal ik het afmaken. Dit zal meer richting het eind van de week zijn vrees ik.
+
+Om te beginnen heb ik een aantal modellen toegevoegd aan models.py. De drie modellen genoemd in de opdracht heb ik toegevoegd aan deze lijst. Dit zijn modellen voor listings, bids en comments. Voor deze modellen heb ik gespecificeerd welke waarden ze hebben. Voor alle getallen heb ik een PositiveIntegerField gebruikt omdat geen van deze getallen negatief mogen zijn.
+
+Voor de eerste opdracht is het nodig om een pagina te maken waar ingelogde gebruikers een nieuwe listing kunnen maken. Het lastigste aan deze opdracht is het samen laten werken van de HTML forms en de Django modellen.

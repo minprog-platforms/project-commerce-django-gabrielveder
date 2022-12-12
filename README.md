@@ -25,12 +25,12 @@ When a logged in user clicks on a listing, they should see a page where they can
 
 This is a render of what the default route will look like:
 
-![Default route](sketches/start_page.png)
+![Default route](commerce_sketches/start_page.png)
 
 This is a sketch of what a listing will look like:
 
-![Listing entry](sketches/listing_entry.png)
+![Listing entry](commerce_sketches/listing_entry.png)
 
 And here is a sketch of the add listing page:
 
-![New listing](sketches/new_listing.png)
+![New listing](commerce_sketches/new_listing.png)

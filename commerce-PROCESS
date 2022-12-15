@@ -9,3 +9,14 @@ Het maken van de readme ging op een vergelijkbare wijze met die van de wiki opdr
 Om te beginnen heb ik een aantal modellen toegevoegd aan models.py. De drie modellen genoemd in de opdracht heb ik toegevoegd aan deze lijst. Dit zijn modellen voor listings, bids en comments. Voor deze modellen heb ik gespecificeerd welke waarden ze hebben. Voor alle getallen heb ik een PositiveIntegerField gebruikt omdat geen van deze getallen negatief mogen zijn.
 
 Voor de eerste opdracht is het nodig om een pagina te maken waar ingelogde gebruikers een nieuwe listing kunnen maken. Het lastigste aan deze opdracht is het samen laten werken van de HTML forms en de Django modellen.
+
+#### 14 - 12 - 2022
+
+De grootste uitdaging vandaag was het opslaan van de form data die uit HTML afkomstig was in de SQL database. Om te beginnen heb ik een admin acount aangemaakt om te kunnen testen. Vervolgens heb ik een new_listing view functie aangemaakt om de user input op te kunnen slaan. Hierna heb ik een new_listing html pagina gemaakt om data in te kunnen stoppen en op de admin pagina gekeken of het toevoegen van een nieuwe advertentie werkte. Na het aanpassen van de views functie werkte dit uiteindelijk.
+
+De volgende uitdaging was het maken van een index pagina en hier alle advertenties van alle gebruikers te tonen. Hiervoor was het nodig om juist de object data uit Django te halen en in een HTML bestand te zetten. Hiervoor moest ook een nieuwe views functie worden gemaakt. 
+
+#### 15 - 12 - 2022
+
+Het was niet nodig om een nieuwe views functie te maken voor de index papgina, omdat deze al bestond. Dit was ook de reden dat de index pagina de listings niet toonde. Door de inhoud van de nieuwe views functie over te plaatsen in de al bestaande index functie werden de listings nu wel wel getoond. 
+

@@ -2,5 +2,21 @@
 
 {% block body %}
     <h2>Active Listings</h2>
-    TODO
+    
+    {% for listing in listings %}
+
+        <div class="jumbotron">
+            <img src="{{ listing.image_url }}" alt="Listing image">
+            <h1>
+                <a href="{% url 'listing_page' id=listing.id %}">{{ listing.title }}</a>
+            </h1>
+            <p class="lead">{{ listing.description }}</p>
+            <p class="lead">
+              <a class="btn btn-primary btn-lg" role="button">{{ listing.current_bid }}</a>
+            </p>
+            <strong><div>Listing by: {{ listing.owner }}</div></strong>
+        </div>
+        <div>--------------------------</div>
+    {% endfor %}
+
 {% endblock %}

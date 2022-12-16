@@ -75,10 +75,11 @@ def new_listing(request):
         start_price = request.POST["start_price"]
         user = request.user
         
-        # Creating bid object to link listing to
+        # Create bid object to link listing to
         bid = Bid(amount=int(start_price), user=user)
         bid.save()
-
+        
+        # Create listing object 
         new_listing = Listing(
             title = title,
             description = description,
@@ -95,7 +96,11 @@ def new_listing(request):
 def listing_page(request, id):
     listing = Listing.objects.get(pk=id)
     comments = Comment.objects.filter(listing=listing)
+
+    # Bool that checks if the visitor is the owner of the page
     visitor_is_owner = listing.owner.username == request.user.username
+
+    # Render listing page
     return render(request, "auctions/listing_page.html",{
         "listing":listing,
         "comments":comments,
@@ -107,6 +112,8 @@ def add_comment(request, id):
     listing = Listing.objects.get(pk=id)
     user = request.user
     comment_body = request.POST['new_comment']
+
+    # Create comment object and save to database
     comment = Comment(author=user, listing=listing, text=comment_body)
     comment.save()
     return HttpResponseRedirect(reverse("listing_page", args=(id, )))
@@ -115,7 +122,11 @@ def add_comment(request, id):
 def add_bid(request, id):
     listing = Listing.objects.get(pk=id)
     comments = Comment.objects.filter(listing=listing)
+
+    # Saves bid amount as integer
     bid = int(request.POST["new_bid"])
+
+    # Bool that checks if the visitor is the owner of the page
     visitor_is_owner = listing.owner.username == request.user.username
     if bid > listing.current_bid.amount:
         new_bid = Bid(user=request.user, amount=bid)
@@ -132,6 +143,8 @@ def add_bid(request, id):
 def close_auction(request, id):
     listing = Listing.objects.get(pk=id)
     comments = Comment.objects.filter(listing=listing)
+
+    # Sets listing to inactive when listing is closed by owner
     listing.isactive = False
     listing.save()
     visitor_is_owner = listing.owner.username == request.user.username

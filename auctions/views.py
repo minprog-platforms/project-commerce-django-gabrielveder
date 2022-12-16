@@ -95,9 +95,7 @@ def new_listing(request):
 def listing_page(request, id):
     listing = Listing.objects.get(pk=id)
     comments = Comment.objects.filter(listing=listing)
-    owner = listing.owner.username
-    visitor = request.user.username
-    visitor_is_owner = owner == visitor
+    visitor_is_owner = listing.owner.username == request.user.username
     return render(request, "auctions/listing_page.html",{
         "listing":listing,
         "comments":comments,
@@ -115,20 +113,30 @@ def add_comment(request, id):
 
 @login_required
 def add_bid(request, id):
-    listing = Listing.objects.get(pk=id)    
+    listing = Listing.objects.get(pk=id)
     comments = Comment.objects.filter(listing=listing)
     bid = int(request.POST["new_bid"])
+    visitor_is_owner = listing.owner.username == request.user.username
     if bid > listing.current_bid.amount:
         new_bid = Bid(user=request.user, amount=bid)
         new_bid.save()
         listing.current_bid = new_bid
         listing.save()
-        return render(request, "auctions/listing_page.html", {
-            "listing":listing,
-            "comments":comments
-        })
+        return render(request, "auctions/listing_page.html",{
+        "listing":listing,
+        "comments":comments,
+        "visitor_is_owner":visitor_is_owner
+    })
 
 @login_required
 def close_auction(request, id):
     listing = Listing.objects.get(pk=id)
-    listing.isactive = 
+    comments = Comment.objects.filter(listing=listing)
+    listing.isactive = False
+    listing.save()
+    visitor_is_owner = listing.owner.username == request.user.username
+    return render(request, "auctions/listing_page.html",{
+    "listing":listing,
+    "comments":comments,
+    "visitor_is_owner":visitor_is_owner
+    })

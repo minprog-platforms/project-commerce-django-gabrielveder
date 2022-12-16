@@ -12,3 +12,4 @@ urlpatterns = [
     path("listing_page/<int:id>", views.listing_page, name="listing_page"),
     path("add_bid/<int:id>", views.add_bid, name ="add_bid"),
     path("close_auction/<int:id>", views.close_auction, name ="close_auction"),
+]

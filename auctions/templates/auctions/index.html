@@ -6,14 +6,12 @@
     {% for listing in listings %}
 
         <div class="jumbotron">
-            <img src="{{ listing.image_url }}" alt="Listing image">
-            <h1>
+            <img src="{{ listing.image_url }}" alt="Listing image" width=200px>
+            <h3>
                 <a href="{% url 'listing_page' id=listing.id %}">{{ listing.title }}</a>
-            </h1>
+            </h3>
             <p class="lead">{{ listing.description }}</p>
-            <p class="lead">
-              <a class="btn btn-primary btn-lg" role="button">{{ listing.current_bid }}</a>
-            </p>
+            <p>Current bid ${{ listing.current_bid.amount }}</p>
             <strong><div>Listing by: {{ listing.owner }}</div></strong>
         </div>
         <div>--------------------------</div>

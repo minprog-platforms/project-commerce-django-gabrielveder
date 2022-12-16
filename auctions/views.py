@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Listing, Bid
+from .models import User, Listing, Comment, Bid
 
 
 def index(request):
@@ -70,14 +70,20 @@ def register(request):
 def new_listing(request):
     if request.method == "POST":
         url = request.POST["url"]
-        listing_title = request.POST["title"]
+        title = request.POST["title"]
         description = request.POST["description"]
-        current_bid = request.POST["start_price"]
+        start_price = request.POST["start_price"]
+        user = request.user
+        
+        # Creating bid object to link listing to
+        bid = Bid(amount=int(start_price), user=user)
+        bid.save()
+
         new_listing = Listing(
-            title = listing_title,
+            title = title,
             description = description,
-            current_bid = current_bid,
-            owner = request.user,
+            current_bid = bid,
+            owner = user,
             image_url = url
             )
         new_listing.save()
@@ -87,10 +93,42 @@ def new_listing(request):
 
 
 def listing_page(request, id):
-    if request.method == "POST":
-        pass
-    else:
-        listing = Listing.objects.get(pk=id)
-        return render(request, "auctions/listing_page.html",{
-            "listing":listing
+    listing = Listing.objects.get(pk=id)
+    comments = Comment.objects.filter(listing=listing)
+    owner = listing.owner.username
+    visitor = request.user.username
+    visitor_is_owner = owner == visitor
+    return render(request, "auctions/listing_page.html",{
+        "listing":listing,
+        "comments":comments,
+        "visitor_is_owner":visitor_is_owner
+    })
+
+@login_required
+def add_comment(request, id):
+    listing = Listing.objects.get(pk=id)
+    user = request.user
+    comment_body = request.POST['new_comment']
+    comment = Comment(author=user, listing=listing, text=comment_body)
+    comment.save()
+    return HttpResponseRedirect(reverse("listing_page", args=(id, )))
+
+@login_required
+def add_bid(request, id):
+    listing = Listing.objects.get(pk=id)    
+    comments = Comment.objects.filter(listing=listing)
+    bid = int(request.POST["new_bid"])
+    if bid > listing.current_bid.amount:
+        new_bid = Bid(user=request.user, amount=bid)
+        new_bid.save()
+        listing.current_bid = new_bid
+        listing.save()
+        return render(request, "auctions/listing_page.html", {
+            "listing":listing,
+            "comments":comments
         })
+
+@login_required
+def close_auction(request, id):
+    listing = Listing.objects.get(pk=id)
+    listing.isactive = 

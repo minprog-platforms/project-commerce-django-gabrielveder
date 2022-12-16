@@ -20,3 +20,9 @@ De volgende uitdaging was het maken van een index pagina en hier alle advertenti
 
 Het was niet nodig om een nieuwe views functie te maken voor de index papgina, omdat deze al bestond. Dit was ook de reden dat de index pagina de listings niet toonde. Door de inhoud van de nieuwe views functie over te plaatsen in de al bestaande index functie werden de listings nu wel wel getoond. 
 
+Een groter probleem waar ik vandaag tegenaanliep was het toevoegen van bids aan listings. Dit moest gedaan worden door bid objecten toe te voegen aan listing objecten. Echter was ik het op het moment aan het doen door een current_bid variabele aan te passen. Op deze manier konden gebruikers niet worden gekoppeld aan hun bids en zouden ze dus ook niet de winnaar van de bidding kunnen worden bepaald.
+
+#### 16 - 12 - 2022
+
+Om dit probleem op te lossen, moest de current_bid van een listing object een foreign key worden die naar een bid object linkt. Na deze verandering te hebben gemaakt in models.py wilde django 'migrate' niet meer uitvoeren. Om dit op te lossen moest ik het database bestand (db.sqlite3) verwijderen en opnieuw alles migreren. 
+

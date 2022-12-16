@@ -1,0 +1,31 @@
+# Dit is het procesboek voor de Commerce opdracht.
+
+### In dit procesboek zal ik bijhouden hoe ik deze opdracht aanpak, tegen welke grote uitdagingen ik aanlop en hoe ik deze oplos.
+
+#### 12 - 12 - 2022
+
+Het maken van de readme ging op een vergelijkbare wijze met die van de wiki opdracht. Het 'Class Diagram' deel van de opdracht heb ik voor nu achterwegen gelaten i.v.m. de tijd die ik nog over heb voor de rest van de opdracht. Wanneer ik nog tijd heb voor dit deel zal ik het afmaken. Dit zal meer richting het eind van de week zijn vrees ik.
+
+Om te beginnen heb ik een aantal modellen toegevoegd aan models.py. De drie modellen genoemd in de opdracht heb ik toegevoegd aan deze lijst. Dit zijn modellen voor listings, bids en comments. Voor deze modellen heb ik gespecificeerd welke waarden ze hebben. Voor alle getallen heb ik een PositiveIntegerField gebruikt omdat geen van deze getallen negatief mogen zijn.
+
+Voor de eerste opdracht is het nodig om een pagina te maken waar ingelogde gebruikers een nieuwe listing kunnen maken. Het lastigste aan deze opdracht is het samen laten werken van de HTML forms en de Django modellen.
+
+#### 14 - 12 - 2022
+
+De grootste uitdaging vandaag was het opslaan van de form data die uit HTML afkomstig was in de SQL database. Om te beginnen heb ik een admin acount aangemaakt om te kunnen testen. Vervolgens heb ik een new_listing view functie aangemaakt om de user input op te kunnen slaan. Hierna heb ik een new_listing html pagina gemaakt om data in te kunnen stoppen en op de admin pagina gekeken of het toevoegen van een nieuwe advertentie werkte. Na het aanpassen van de views functie werkte dit uiteindelijk.
+
+De volgende uitdaging was het maken van een index pagina en hier alle advertenties van alle gebruikers te tonen. Hiervoor was het nodig om juist de object data uit Django te halen en in een HTML bestand te zetten. Hiervoor moest ook een nieuwe views functie worden gemaakt. 
+
+#### 15 - 12 - 2022
+
+Het was niet nodig om een nieuwe views functie te maken voor de index papgina, omdat deze al bestond. Dit was ook de reden dat de index pagina de listings niet toonde. Door de inhoud van de nieuwe views functie over te plaatsen in de al bestaande index functie werden de listings nu wel wel getoond. 
+
+Een groter probleem waar ik vandaag tegenaanliep was het toevoegen van bids aan listings. Dit moest gedaan worden door bid objecten toe te voegen aan listing objecten. Echter was ik het op het moment aan het doen door een current_bid variabele aan te passen. Op deze manier konden gebruikers niet worden gekoppeld aan hun bids en zouden ze dus ook niet de winnaar van de bidding kunnen worden bepaald.
+
+#### 16 - 12 - 2022
+
+Om dit probleem op te lossen, moest de current_bid van een listing object een foreign key worden die naar een bid object linkt. Na deze verandering te hebben gemaakt in models.py wilde django 'migrate' niet meer uitvoeren. Om dit op te lossen moest ik het database bestand (db.sqlite3) verwijderen en opnieuw alles migreren. Om dit alles op te lossen heb ik veel op moeten zoeken en uit moeten vogelen.
+
+Het toevoegen van comments was een redelijk vergelijkbaar proces met het toevoegen van bids. Het toevoegen van bids was echter lastiger omdat ik toegang moest krijgen tot velden in de verschillende classes. De related_name velden van de models heb ik niet gebruikt tijdens het programmeren. Om deze reden heb ik alle related_name velden verwijderd uit de models.py classes. 
+
+Om de opdracht af te sluiten ben ik bezig geweest met de stijl van de website. Ik heb de website zo veel mogelijk laten lijken op de sketches die ik had gemaakt voor het design document. Dit is niet op elke pagina gelukt omdat ik niet de over de CSS ervaring beschik.

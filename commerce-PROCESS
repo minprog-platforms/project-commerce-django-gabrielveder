@@ -24,5 +24,8 @@ Een groter probleem waar ik vandaag tegenaanliep was het toevoegen van bids aan 
 
 #### 16 - 12 - 2022
 
-Om dit probleem op te lossen, moest de current_bid van een listing object een foreign key worden die naar een bid object linkt. Na deze verandering te hebben gemaakt in models.py wilde django 'migrate' niet meer uitvoeren. Om dit op te lossen moest ik het database bestand (db.sqlite3) verwijderen en opnieuw alles migreren. 
+Om dit probleem op te lossen, moest de current_bid van een listing object een foreign key worden die naar een bid object linkt. Na deze verandering te hebben gemaakt in models.py wilde django 'migrate' niet meer uitvoeren. Om dit op te lossen moest ik het database bestand (db.sqlite3) verwijderen en opnieuw alles migreren. Om dit alles op te lossen heb ik veel op moeten zoeken en uit moeten vogelen.
 
+Het toevoegen van comments was een redelijk vergelijkbaar proces met het toevoegen van bids. Het toevoegen van bids was echter lastiger omdat ik toegang moest krijgen tot velden in de verschillende classes. De related_name velden van de models heb ik niet gebruikt tijdens het programmeren. Om deze reden heb ik alle related_name velden verwijderd uit de models.py classes. 
+
+Om de opdracht af te sluiten ben ik bezig geweest met de stijl van de website. Ik heb de website zo veel mogelijk laten lijken op de sketches die ik had gemaakt voor het design document. Dit is niet op elke pagina gelukt omdat ik niet de over de CSS ervaring beschik.

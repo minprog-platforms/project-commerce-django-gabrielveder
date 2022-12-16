@@ -1,62 +1,58 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <div>
-        <h1>{{ listing.title }}</h1>
-        <div><img src={{ listing.image_url }} width=200px></div>
-        <p>{{ listing.description }}</p>
-        <p>Seller: <strong>{{ listing.owner }}</strong></p>
-        <h5>Current bid: ${{ listing.current_bid.amount }}</h5>
-    </div>
+    <div class="parent1">
 
-    {% if user.is_authenticated and listing.isactive %}
-        {% if not visitor_is_owner %}
-            <form action="{% url 'add_bid' id=listing.id %}" method="POST">
+        <div class="child1">
+            <h2>{{ listing.title }}</h2>
+            <div><img src={{ listing.image_url }} width=200px></div>
+            <h5 id="bid">Current bid: ${{ listing.current_bid.amount }}</h5>
+
+        {% if user.is_authenticated and listing.isactive %}
+            {% if not visitor_is_owner %}
+                <form action="{% url 'add_bid' id=listing.id %}" method="POST">
+                    {% csrf_token %}
+                    <input id="button" type="number" min={{listing.current_bid.amount}} name="new_bid" placeholder="$">
+                    <div>
+                        <button class="btn btn-primary" type="submit">Place bid</button>
+                    </div>
+                </form>
+            {% endif %} 
+            <br>
+            {% if visitor_is_owner %}
+                <form action="{% url 'close_auction' id=listing.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Close auction</button>
+                </form>
+            {% endif %}
+        {% endif %}
+        </div>
+
+        <div class="child1">
+            <p>{{ listing.description }}</p>
+            <p>Seller: <strong>{{ listing.owner }}</strong></p>
+        </div>
+
+        <div class="child1">
+            <h3>Comments:</h3>
+            {% if user.is_authenticated %}
+            <form action="{% url 'add_comment' id=listing.id %}" method="POST">
                 {% csrf_token %}
-                <input type="number" min={{listing.current_bid.amount}} name="new_bid" placeholder="$">
+                <textarea name="new_comment" placeholder="Add comment" rows=3 cols=50></textarea>
                 <div>
-                    <button class="btn btn-primary" type="submit">Place bid</button>
+                    <button class="btn btn-primary" type="submit">Add comment</button>
                 </div>
             </form>
-        {% endif %}    
-        <br>
-        {% if visitor_is_owner %}
-            <form action="{% url 'close_auction' id=listing.id %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Close auction</button>
-            </form>
-        {% endif %}
-    {% endif %}
-
-    <br>
-
-    {% if not listing.isactive and user == listing.current_bid.user %}
-        <div class="alert alert-success" role="alert">
-            Congratulations! You won the auction!
+            <ul class="list-group list-group-flush">
+                {% for comment in comments %}
+                    <li class="list-group-item">
+                        <h6>Comment by: {{ comment.author }}</h6>
+                        <p>{{ comment.text }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
         </div>
-    {% endif %}
-
-    <h3>Comments:</h3>
-    {% if user.is_authenticated %}
-        <form action="{% url 'add_comment' id=listing.id %}" method="POST">
-            {% csrf_token %}
-            <textarea name="new_comment" placeholder="Add comment" rows=3 cols=50></textarea>
-            <div>
-                <button class="btn btn-primary" type="submit">Add comment</button>
-            </div>
-        </form>
-    {% endif %}
-    
-    <br>
-
-    <ul class="list-group list-group-flush">
-        {% for comment in comments %}
-            <li class="list-group-item">
-                <h6>Comment by: {{ comment.author }}</h6>
-                <p>{{ comment.text }}</p>
-            </li>
-        {% endfor %}
-    </ul>
-
+    </div>
 
 {% endblock %}

@@ -1,3 +1,50 @@
 body {
     padding: 10px;
 }
+
+.parent {
+    display: grid;
+    grid-template-columns: 300px 300px 500px;
+    grid-template-rows: auto;
+
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: 2px solid black;
+    align-items: center;
+    padding: 20px;
+}
+
+.parent1 {
+
+    display: grid;
+    grid-template-columns: 300px 500px 600px;
+    grid-template-rows: auto;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    padding: 10px;
+}
+
+.child1 {
+    padding: 20px;
+}
+
+.child {
+    box-sizing: border-box;
+    border: 2px;
+}
+
+.grandchild {
+    display: inline-block;
+    vertical-align: right;
+}
+
+#button {
+    margin: 5px;
+}
+
+#bid{
+    margin-top: 10px;
+}

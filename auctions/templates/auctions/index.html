@@ -1,20 +1,23 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
-    
-    {% for listing in listings %}
 
-        <div class="jumbotron">
-            <img src="{{ listing.image_url }}" alt="Listing image" width=200px>
-            <h3>
-                <a href="{% url 'listing_page' id=listing.id %}">{{ listing.title }}</a>
-            </h3>
-            <p class="lead">{{ listing.description }}</p>
-            <p>Current bid ${{ listing.current_bid.amount }}</p>
-            <strong><div>Listing by: {{ listing.owner }}</div></strong>
-        </div>
-        <div>--------------------------</div>
-    {% endfor %}
+    <ul class="list-group list-group-flush">
+        {% for listing in listings %}
+            <li>
+                <div class="parent">
+                    <div id="img"><img src="{{ listing.image_url }}" alt="Listing image" width=200px></div>                    
+                    <div class="child">
+                        <a style="font-size: 1.17em; font-weight: bold;" href="{% url 'listing_page' id=listing.id %}">{{ listing.title }}</a>
+                        <p>Current bid ${{ listing.current_bid.amount }}</p>
+                        <p>Listing by: <strong>{{ listing.owner }}</strong></p>
+                    </div>
+
+                    <div class="grandchild"><p class="lead">{{ listing.description }}</p></div>
+         
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
 
 {% endblock %}

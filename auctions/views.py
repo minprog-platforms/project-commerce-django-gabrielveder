@@ -88,7 +88,8 @@ def new_listing(request):
             image_url = url
             )
         new_listing.save()
-        return render(request, "auctions/index.html")
+        # return render(request, "auctions/index.html")
+        return index(request)
     else:
         return render(request, "auctions/new_listing.html")
 
@@ -123,7 +124,7 @@ def add_bid(request, id):
     listing = Listing.objects.get(pk=id)
     comments = Comment.objects.filter(listing=listing)
 
-    # Saves bid amount as integer
+    # Save bid amount as integer
     bid = int(request.POST["new_bid"])
 
     # Bool that checks if the visitor is the owner of the page
